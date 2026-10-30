@@ -1,0 +1,51 @@
+{% extends "base.html" %}
+
+{% block sidebar %}
+{% if perms.auth.is_admin %}
+{% include "admin/components/sidebar.html" %}
+{% elif perms.auth.is_alumnus %}
+{% include "alumni/components/sidebar.html" %}
+{% elif perms.auth.is_student %}
+{% include "student/components/sidebar.html" %}
+{% endif %}
+{% endblock %}
+
+{% block content %}
+<main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
+  <div class="pt-3 pb-2 mb-3 border-bottom d-flex align-items-center">
+    <h3 class="me-3">Conversation with {{ other.get_full_name|default:other.username }}</h3>
+    <div class="small text-muted">{{ other.email }}</div>
+  </div>
+
+  <div class="mb-4">
+    <div class="card">
+      <div class="card-body" style="max-height:60vh; overflow:auto;">
+        {% for msg in messages %}
+          {% if msg.sender == request.user %}
+            <div class="text-end mb-2">
+              <div class="d-inline-block bg-primary text-white p-2 rounded">{{ msg.body|linebreaksbr }}</div>
+              <div class="small text-muted">{{ msg.timestamp }}</div>
+            </div>
+          {% else %}
+            <div class="text-start mb-2">
+              <div class="d-inline-block bg-light text-dark p-2 rounded">{{ msg.body|linebreaksbr }}</div>
+              <div class="small text-muted">{{ msg.timestamp }}</div>
+            </div>
+          {% endif %}
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+
+  <div>
+    <form method="post">
+      {% csrf_token %}
+      {{ form.body }}
+      <div class="mt-2">
+        <button class="btn btn-primary" type="submit">Send</button>
+        <a href="{% url 'chat_list' %}" class="btn btn-secondary ms-2">Back</a>
+      </div>
+    </form>
+  </div>
+</main>
+{% endblock %}

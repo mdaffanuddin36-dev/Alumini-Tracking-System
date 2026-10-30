@@ -1,0 +1,436 @@
+body {
+    font-size: 0.9rem;
+    font-family: 'Nunito', sans-serif;
+    background-color:#41a6b079;
+}
+
+a {
+    color: cornflowerblue;
+    text-decoration: none;
+}
+
+.feather {
+    width: 16px;
+    height: 16px;
+    vertical-align: text-bottom;
+}
+
+
+/* sidebar-sticky*/
+
+.sidebar{
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 100;
+    padding: 48px 0 0;
+    box-shadow: inset -1px 0 0 rgba(103, 100, 191, 0.043);
+}
+
+@media (max-width: 767.98px) {
+    .sidebar-sticky{
+        top: 5rem;
+    }
+}
+
+.sidebar-sticky {
+    position: relative;
+    top: 0;
+    bottom: 0;
+    min-height: calc(100vh - 50px);
+    padding-top: 0.5rem;
+    overflow-x: hidden;
+    overflow-y: auto;
+}
+
+.sidebar-sticky .nav-link {
+    font-weight: 500;
+    color: #333333;
+}
+
+.sidebar-sticky .nav-link .feather {
+    margin-right: 4px;
+    color: #727272;
+}
+
+.sidebar-sticky .nav-item.active {
+    background-color: #922c2c;
+}
+.sidebar-sticky .nav-link {
+    color: white;
+}
+
+.sidebar-sticky .nav-link.active {
+    color: white;
+}
+
+.sidebar-sticky button:active {
+    outline: none;
+  box-shadow: none !important;
+  -webkit-appearance: none;
+}
+
+.sidebar-sticky button:focus {
+    outline: none;
+  box-shadow: none !important;
+  -webkit-appearance: none;
+}
+
+.sidebar-sticky button:hover {
+    outline: none;
+  box-shadow: none !important;
+  -webkit-appearance: none;
+}
+
+
+.sidebar-sticky .nav-link:hover .feather,
+.sidebar-sticky .nav-link.active .feather {
+    color: inherit;
+}
+
+.sidebar-heading {
+    font-size: 0.75rem;
+    text-transform: uppercase;
+}
+
+
+/*
+     * Navbar
+     */
+
+.navbar-brand {
+    padding-top: 0.75rem;
+    padding-bottom: 0.75rem;
+    font-size: 1rem;
+}
+
+.navbar .navbar-toggler {
+    top: 0.25rem;
+    right: 1rem;
+}
+
+.navbar .form-control {
+    padding: 0.75rem 1rem;
+    border-width: 0;
+    border-radius: 0;
+}
+
+.nav-btn:active {
+    outline: none;
+  box-shadow: none !important;
+  -webkit-appearance: none;
+}
+
+.nav-btn:focus {
+    outline: none;
+  box-shadow: none !important;
+  -webkit-appearance: none;
+}
+
+.nav-btn:hover {
+    outline: none;
+    color: white;
+    background-color: #727272;
+    box-shadow: none !important;
+    -webkit-appearance: none;
+}
+
+.navbar .feather {
+    margin-right: 4px;
+    color: #727272;
+}
+
+.form-control-dark {
+    color: #fff;
+    background-color: rgba(208, 28, 28, 0.1);
+    border-color: rgba(73, 127, 161, 0.1);
+}
+
+.form-control-dark:focus {
+    border-color: transparent;
+    box-shadow: 0 0 0 3px rgba(152, 29, 29, 0.25);
+}
+
+.error-message {
+    color: red;
+}
+
+.error-list {
+    list-style: none;
+    color: red;
+}
+
+.scrollarea {
+    overflow-y: auto;
+}
+
+.fw-semibold {
+    font-weight: 600;
+}
+
+.lh-tight {
+    line-height: 1.25;
+}
+
+.delete {
+    display: flex;
+    justify-content: center;
+    align-items: center; 
+}
+
+/* Dashboard improvements */
+.dashboard-header {
+    border-bottom: 2px solid rgba(0,0,0,0.08);
+    padding-bottom: 0.5rem;
+    margin: 0 0 1rem 0;
+}
+
+.marquee-wrapper {
+    display: block;
+    border-radius: 6px;
+    padding: 0.5rem 1rem;
+    margin: 0.5rem 0 1rem 0;
+    background: linear-gradient(90deg, rgba(255,255,255,0.08), rgba(255,255,255,0.02));
+    border: 1px solid rgba(87,114,133,0.15);
+}
+
+.marquee-text {
+    font-weight: 700;
+    color: #0f0909;
+    white-space: nowrap;
+    overflow: hidden;
+}
+
+/* Events grid */
+.events-row {
+    gap: 1rem;
+}
+
+.event-card {
+    height: 100%;
+}
+
+.event-card .card-img-top {
+    max-height: 160px;
+    object-fit: cover;
+}
+
+.post-card .card-body p {
+    max-height: 6rem;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+@media (max-width: 767.98px) {
+    .event-card { margin-bottom: 1rem; }
+}
+
+/* Accent colors and buttons */
+:root{
+    --accent-1: #2B9BCB;
+    --accent-2: #6FCF97;
+    --card-bg: rgba(255,255,255,0.9);
+    --muted: #6c757d;
+    --dashboard-card-height: 420px; /* change this to tune card size on desktop */
+}
+
+.btn-accent{
+    background: linear-gradient(90deg,var(--accent-1), #4aa3d6);
+    color: #fff;
+    border: none;
+    box-shadow: 0 6px 18px rgba(43,155,203,0.12);
+}
+
+.btn-accent:hover{ transform: translateY(-2px); }
+
+/* card improvements */
+.card {
+    border-radius: 10px;
+    background: var(--card-bg);
+    transition: transform .18s ease, box-shadow .18s ease;
+}
+
+.card:hover{
+    transform: translateY(-6px) scale(1.01);
+    box-shadow: 0 12px 40px rgba(10, 10, 20, 0.08);
+}
+
+.card .card-header a{ color: inherit; font-weight:600 }
+
+/* compact mode - reduces paddings and hides descriptions */
+.compact .card .card-body{ padding: .75rem; }
+.compact .card .card-text{ display:none; }
+.compact main{ padding-top: .5rem }
+
+/* badges */
+.badge-accent{
+    background: linear-gradient(90deg,var(--accent-2), #5ddfa5);
+    color: #fff;
+    font-weight:700;
+}
+
+/* subtle loading shimmer for images */
+.img-placeholder{
+    background: linear-gradient(90deg,#eee #f5f5f5 #eee);
+    background-size: 200% 100%;
+    animation: shimmer 1.8s linear infinite;
+}
+
+@keyframes shimmer{
+    0%{ background-position: -200% 0 }
+    100%{ background-position: 200% 0 }
+}
+
+/* header toggle button */
+.toggle-compact {
+    background: transparent;
+    border: 1px solid rgba(255,255,255,0.08);
+    color: #fff;
+    padding: .35rem .6rem;
+    border-radius: 6px;
+}
+.toggle-compact:hover{ background: rgba(255,255,255,0.03) }
+
+/* Ensure event and post cards stretch to equal heights in rows */
+.events-row > .col,
+.posts-row > .col {
+    display: flex;
+    align-items: stretch;
+}
+.event-card, .post-card {
+    display: flex;
+    flex-direction: column;
+    flex: 1 1 auto;
+    height: auto;
+    min-height: 320px; /* base minimum on small screens */
+}
+
+/* On medium+ screens force a unified fixed height so all boxes match exactly */
+@media (min-width: 768px) {
+    .event-card, .post-card {
+        height: var(--dashboard-card-height);
+        min-height: var(--dashboard-card-height);
+    }
+}
+
+.event-card .card-body,
+.post-card .card-body {
+    flex: 1 1 auto;
+    overflow: hidden;
+}
+
+.card-text {
+    display: -webkit-box;
+    -webkit-line-clamp: 4;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+/* keep list-group/footer pinned to the bottom of the card */
+.event-card .list-group,
+.post-card .list-group {
+    margin-top: auto;
+}
+
+/* prevent long titles from stretching height */
+.card-title {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+/* Slightly larger image area for consistent look */
+.event-card .card-img-top, .post-card .card-img-top {
+    width: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+/* fixed image heights so visual area is identical */
+@media (min-width: 768px) {
+    .event-card .card-img-top, .post-card .card-img-top { height: 180px; }
+}
+@media (max-width: 767.98px) {
+    .event-card .card-img-top, .post-card .card-img-top { height: 140px; }
+}
+
+/* posts grid spacing */
+.posts-row { gap: 1rem; }
+
+/* Dashboard unified grid and card rules
+   - Provides a responsive grid container `dashboard-cards`
+   - Ensures every card uses the same fixed height on medium+ screens
+   - Keeps image area consistent and lets card body scroll when content overflows
+*/
+.dashboard-cards {
+    display: grid;
+    gap: 1rem;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    align-items: start;
+    grid-auto-rows: 1fr; /* ensures rows expand evenly by default */
+}
+
+/* generic dashboard card wrapper used by events/posts */
+.dashboard-card, .event-card, .post-card {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    background: var(--card-bg);
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 6px 18px rgba(10,10,20,0.04);
+}
+
+/* Keep a consistent overall card height on medium+ screens */
+@media (min-width: 768px) {
+    .dashboard-cards { grid-auto-rows: var(--dashboard-card-height); }
+    .dashboard-card, .event-card, .post-card {
+        height: var(--dashboard-card-height);
+    }
+}
+
+/* Image area kept fixed height and does not stretch the card */
+.dashboard-card .card-img-top, .event-card .card-img-top, .post-card .card-img-top {
+    flex: 0 0 auto;
+    width: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+/* Body grows and scrolls if content is long; footer/list-group stays pinned to bottom */
+.dashboard-card .card-body, .event-card .card-body, .post-card .card-body {
+    flex: 1 1 auto;
+    overflow: auto;
+    padding: 1rem;
+}
+
+.dashboard-card .card-footer, .dashboard-card .list-group, .event-card .card-footer, .post-card .card-footer, .event-card .list-group, .post-card .list-group {
+    flex: 0 0 auto;
+}
+
+/* When card content is short keep visual balance by centering small blocks */
+.dashboard-card .card-body .small-content-center {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+}
+
+/* Make sure standard bootstrap column wrappers honor equal-height behavior when used */
+.dashboard .row > [class*="col-"] {
+    display: flex;
+    align-items: stretch;
+}
+
+
+/* .card {
+    background-color: #2F4F4F;
+} */
+
+td { 
+    overflow: hidden; 
+    text-overflow: ellipsis; 
+    word-wrap: break-word;
+}
+

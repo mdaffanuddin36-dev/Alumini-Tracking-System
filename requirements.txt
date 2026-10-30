@@ -1,0 +1,10 @@
+Django
+psycopg2-binary
+numpy
+pandas
+matplotlib
+nltk
+scikit-learn
+requests
+python-dotenv
+openai==0.28

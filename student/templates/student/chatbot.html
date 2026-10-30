@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.6/css/all.css">
+    <style>
+        *{margin:0;padding:0;box-sizing:border-box;}
+        body{width:100%;min-height:100vh;}
+        .main-container{margin:0 auto;width:100%;height:100%;max-width:500px;padding:20px 0;}
+        #chatbot-container{
+            width:95%;height:350px;margin:10px auto;padding:10px 5px;
+            overflow-y:auto;background:#f3f3f3;display:flex;flex-direction:column;border-radius:10px;
+        }
+        .speech::first-letter,.recorder::first-letter{text-transform:capitalize;}
+        #chatbot-container .recorder{
+            color:#fff;background:#78f;border-radius:5px;padding:8px;margin:4px 0;
+            max-width:250px;align-self:flex-start;flex-shrink:0;
+        }
+        #chatbot-container .speech{
+            color:#fff;background:#1c8;border-radius:5px;padding:8px;margin:4px 0;
+            flex-shrink:0;align-self:flex-end;max-width:250px;
+        }
+        button{border:none;outline:none;background:none;}
+        .fa-telegram-plane{font-size:36px;width:15%;padding:8px 12px;cursor:pointer;}
+        .fa-telegram-plane:hover{color:#78f;}
+        #btn{
+            background:#78f;color:whiteSmoke;padding:10px 25px;font-size:22px;font-weight:600;
+            display:block;box-shadow:0 3px 10px #a7f;margin:0 auto;transition:0.5s;
+        }
+        #btn:hover{padding-right:30px;background:#6a7;transition:0.5s;}
+        #form{text-align:center;margin-bottom:8px;}
+        #form #botvalue{
+            padding:8px 10px;border-radius:6px;outline:none;width:calc(100% - 18%);
+            line-height:30px;border:1px solid #555;font-size:17px;
+        }
+    </style>
+</head>
+
+{% extends "base.html" %}
+
+{% block sidebar %}
+{% if perms.auth.is_admin %}
+    {% include "admin/components/sidebar.html" %}
+{% elif perms.auth.is_alumnus %}
+    {% include "alumni/components/sidebar.html" %}
+{% elif perms.auth.is_student %}
+    {% include "student/components/sidebar.html" %}
+{% endif %}
+{% endblock %}
+
+{% block content %}
+<main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
+    <div class="main-container">
+        <div id="chatbot-container"></div>
+
+        <form id="form" method="POST" accept-charset="utf-8">
+            {% csrf_token %}
+            <input type="text" name="botvalue" id="botvalue" placeholder="Say something"/>
+            <button type="submit" class="submit fab fa-telegram-plane"></button>
+        </form>
+
+        <button id="btn" type="button" onclick="startVoice()" class="fa fa-microphone"> start voice</button>
+    </div>
+
+<script>
+    const container = document.getElementById('chatbot-container');
+    const btn = document.getElementById('btn');
+    const form = document.getElementById('form');
+    const input = document.getElementById('botvalue');
+
+    // Speech recognition setup
+    const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+    const recorder = new SpeechRecognition();
+
+    recorder.onstart = () => { btn.innerHTML = " voice is active"; }
+    recorder.onend = () => { btn.innerHTML = " start voice"; }
+
+    recorder.onresult = (event) => {
+        const transcript = event.results[event.resultIndex][0].transcript;
+        container.innerHTML += `<p class="recorder">${transcript}</p>`;
+        sendToBot(transcript);
+    }
+
+    function startVoice() {
+        recorder.start();
+    }
+
+    // Function to send user message to Django backend (OpenAI)
+    async function sendToBot(message) {
+        if (!message.trim()) return;
+
+        container.innerHTML += `<p class="recorder">${message}</p>`;
+        input.value = "";
+
+        try {
+            const response = await fetch("{% url 'chatbot' %}", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                    "X-CSRFToken": "{{ csrf_token }}"
+                },
+                body: JSON.stringify({ message: message })
+            });
+
+            const data = await response.json();
+
+            if (data.response) {
+                container.innerHTML += `<p class="speech">${data.response}</p>`;
+                speakResponse(data.response);
+            } else {
+                container.innerHTML += `<p class="speech">Error: ${data.error}</p>`;
+            }
+        } catch (err) {
+            container.innerHTML += `<p class="speech">Error connecting to chatbot.</p>`;
+        }
+
+        container.scrollTop = container.scrollHeight; // auto scroll
+    }
+
+    // Function to handle speech synthesis
+    function speakResponse(text) {
+        const speech = new SpeechSynthesisUtterance();
+        speech.text = text;
+        speech.volume = 1;
+        speech.rate = 1;
+        speech.pitch = 1;
+        window.speechSynthesis.speak(speech);
+    }
+
+    // Handle form submit
+    form.onsubmit = (e) => {
+        e.preventDefault();
+        const message = input.value;
+        sendToBot(message);
+    };
+</script>
+</main>
+{% endblock %}

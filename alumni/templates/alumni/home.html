@@ -1,0 +1,70 @@
+{% extends "base.html" %}
+{% block sidebar %}
+{% include "alumni/components/sidebar.html" %}
+{% endblock %}
+{% block content %}
+<main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
+  <div class="d-flex justify-content-between align-items-center dashboard-header">
+    <h1 class="h2">Alumni Dashboard</h1>
+  </div>
+
+  <div class="marquee-wrapper">
+    <div class="marquee-text">Upcoming Events</div>
+  </div>
+
+  <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 events-row">
+    {% for item in event %}
+    <div class="col">
+      <div class="card event-card dashboard-card h-100">
+        {% if item.Image %}
+        <img src="{{ item.Image.url }}" class="card-img-top" alt="{{ item.Name }}" />
+        {% endif %}
+        <div class="card-body">
+          <h5 class="card-title">{{ item.Name }}</h5>
+          <p class="card-text">{{ item.Description }}</p>
+        </div>
+        <ul class="list-group list-group-flush">
+          <li class="list-group-item">Date: {{ item.Date }}</li>
+          <li class="list-group-item">Location: {{ item.Location }}</li>
+          <li class="list-group-item">Time: {{ item.Time }}</li>
+        </ul>
+      </div>
+    </div>
+    {% empty %}
+    <div class="col-12">
+      <p class="text-muted">No upcoming events.</p>
+    </div>
+    {% endfor %}
+  </div>
+
+  <div class="marquee-wrapper mt-4">
+    <div class="marquee-text">Recent Posts</div>
+  </div>
+
+  <div class="row row-cols-1 row-cols-md-2 g-3 posts-row">
+    {% if posts %}
+      {% for post in posts %}
+      <div class="col">
+        <div class="card post-card dashboard-card h-100">
+          {% if post.image %}
+            <img src="{{ post.image.url }}" class="card-img-top" alt="{{ post.title }}" />
+          {% endif %}
+          <div class="card-header d-flex">
+            <a href={% url 'post_detail' pk=post.pk %} class="text-decoration-none">{{ post.title }}</a>
+            <div class="text-muted ms-auto small">
+              {{ post.author.name }}, <time>{{ post.time_posted }}</time>
+            </div>
+          </div>
+          <div class="card-body">
+            <p class="card-text">{{ post.content }}</p>
+          </div>
+        </div>
+      </div>
+      {% endfor %}
+    {% else %}
+      <div class="col-12"><p class="text-muted">No posts.</p></div>
+    {% endif %}
+  </div>
+
+</main>
+{% endblock %}
